@@ -262,31 +262,31 @@ docker compose restart n8n
 1. **Backup Data (Sangat Direkomendasikan):**
 
 ```
-sudo cp -Rp /home/<NAMA_PENGGUNA_ANDA>/n8n/n8n_data /home/<NAMA_PENGGUNA_ANDA>/n8n/n8n_data_backup_$(date +%Y%m%d%H%M%S)
+sudo cp -Rp /home/<NAMA_PENGGUNA_ANDA>/n8n/n8n_data /home/<NAMA_PENGGUNA_ANDA>/n8n/n8n_data_backup_$(date +%Y%m%d%H%M%S)
 ```
 
 2. **Navigasi ke Direktori `docker-compose.yml`:**
 
 ```
-cd /home/<NAMA_PENGGUNA_ANDA>/n8n
+cd /home/<NAMA_PENGGUNA_ANDA>/n8n
 ```
 
 3. **Tarik Image Terbaru (jika menggunakan tag `latest` atau versi baru):** Jika Anda ingin menggunakan versi spesifik, ubah tag `image` di `docker-compose.yml` (misalnya, `image: n8nio/n8n:1.95.3`).
 
 ```
-docker compose pull n8n # Menarik tag yang didefinisikan di docker-compose.yml
+docker compose pull n8n # Menarik tag yang didefinisikan di docker-compose.yml
 ```
 
 4. **Hentikan** Kontainer **Saat Ini:**
 
 ```
-docker compose down
+docker compose down
 ```
 
 5. **Mulai n8n dengan Image Baru:**
 
 ```
-docker compose up -d
+docker compose up -d
 ```
 
 6. Docker Compose akan menggunakan image yang baru ditarik/didefinisikan dan melampirkan kembali volume data Anda.
