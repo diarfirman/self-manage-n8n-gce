@@ -1,0 +1,27 @@
+services:
+  n8n:
+    image: n8nio/n8n # Untuk versi stabil terbaru, atau n8nio/n8n:<versi_spesifik>
+    restart: always
+    ports:
+      # Petakan port 443 di host ke port 443 di container untuk HTTPS standar
+      - "443:443"
+    environment:
+      - N8N_HOST=<NAMA_SUBDOMAIN_ANDA>.duckdns.org
+      - N8N_PORT=443 # n8n akan mendengarkan di port 443 di dalam container
+      - N8N_PROTOCOL=https
+      # Path di dalam kontainer setelah di-mount dari direktori kustom
+      - N8N_SSL_CERT=/sertifikat_n8n/fullchain.pem
+      - N8N_SSL_KEY=/sertifikat_n8n/privkey.pem
+      - WEBHOOK_URL=https://<NAMA_SUBDOMAIN_ANDA>.duckdns.org/
+      - GENERIC_TIMEZONE=Asia/Jakarta # Zona waktu Anda
+      - N8N_RUNNERS_ENABLED=true # Direkomendasikan
+      # Opsional: untuk memperbaiki peringatan izin file config
+      # - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    volumes:
+      # Volume untuk data n8n (workflow, credentials, dll.)
+      - /home/<NAMA_PENGGUNA_ANDA>/n8n/n8n_data:/home/node/.n8n
+      # Mount direktori sertifikat kustom Anda dari host ke /sertifikat_n8n di kontainer
+      - /home/<NAMA_PENGGUNA_ANDA>/n8n/n8n_certs:/sertifikat_n8n:ro
+      # Opsional: Mount seluruh direktori Let's Encrypt jika Anda ingin merujuk langsung ke sana
+      # dan menangani izin dengan cara lain. Namun, konfigurasi di atas menggunakan salinan.
+      # - /etc/letsencrypt:/etc/letsencrypt:ro
